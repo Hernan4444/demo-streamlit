@@ -113,7 +113,11 @@ def interactive_view(df):
         .mark_arc()
         .encode(
             theta="count()",
-            color=alt.Color("servicio_aire_acondicionado:N").scale(scheme="set2"),
+            color=alt.Color(
+                "servicio_aire_acondicionado:N",
+                legend=alt.Legend(title="Aire"),
+                scale=alt.Scale(scheme="set2"),
+            ),
             opacity=alt.condition(selection, alt.value(1), alt.value(0.2)),
         )
         .add_params(selection)
@@ -132,6 +136,7 @@ def interactive_view(df):
         .properties(height=300, width=200)
     )
 
+    # juntos = alt.HConcatChart(bar, pie, autosize="fit")
     st.altair_chart(bar | pie)
 
 
